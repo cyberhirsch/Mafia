@@ -662,57 +662,48 @@ function endTurn() {
     renderScreen();
 }
 
-// --- SCALING LOGIC ---
+// --- SCALING LOGIC (Modified for #game-window) ---
 function scaleGameInterface() {
     const scalerWrapper = document.getElementById('scaler-wrapper');
-    const monitorFrame = document.getElementById('monitor-frame');
+    const gameWindow = document.getElementById('game-window'); // Target game-window now
 
-    if (!scalerWrapper || !monitorFrame) {
-        console.error("Scaling elements not found!");
+    if (!scalerWrapper || !gameWindow) {
+        // console.error("Scaling elements not found for scaleGameInterface!");
         return;
     }
 
-    // Get the designed dimensions of the monitor frame (from CSS variables or explicit if not using them there)
-    // We need its unscaled width and height.
-    // Since we calculated them with CSS variables for #monitor-frame's width/height, we can parse them.
-    // This is a bit complex if they are deeply nested calc(). A simpler way is to set them explicitly if known.
-    // For this example, let's assume you know the target unscaled width/height of monitorFrame or can retrieve it.
+    const gameWindowStyle = window.getComputedStyle(gameWindow);
+    let designedWidth = parseFloat(gameWindowStyle.width);
+    let designedHeight = parseFloat(gameWindowStyle.height);
 
-    // Get current style of monitorFrame to find its 'width' and 'height' as computed by CSS variables
-    const monitorStyle = window.getComputedStyle(monitorFrame);
-    const designedWidth = parseFloat(monitorStyle.width);  // This will be in pixels
-    const designedHeight = parseFloat(monitorStyle.height); // This will be in pixels
+    // --- YOU MUST ACCURATELY CALCULATE THESE FALLBACKS BASED ON YOUR CSS ---
+    // These are the total pixel dimensions of #game-window including its own border.
+    // Based on the refined CSS variables:
+    // designedWidth = --c64-screen-bordered-width + (2 * #game-window-border ie. 2*2px)
+    //             = 666px (from before) + 4px = 670px
+    // designedHeight = --status-line-total-height + --c64-screen-bordered-height + --message-area-total-height + (2 * #game-window-border)
+    //              = 29px + 426px + 51px + 4px = 510px
+    const FALLBACK_DESIGNED_WIDTH = 670; // EXAMPLE - RECALCULATE CAREFULLY!
+    const FALLBACK_DESIGNED_HEIGHT = 510; // EXAMPLE - RECALCULATE CAREFULLY!
+    // --------------------------------------------------------------------------
 
-    if (isNaN(designedWidth) || isNaN(designedHeight) || designedWidth === 0 || designedHeight === 0) {
-        // console.warn("Could not determine designed dimensions for scaling. Using fallback or waiting.");
-        // It might take a frame for CSS variables to fully compute.
-        // If it's consistently NaN, the CSS var calculation for width/height of #monitor-frame needs review.
-        // For now, let's try a slight delay if it's an initial load issue.
-        // setTimeout(scaleGameInterface, 50); // Try again shortly
-        return; // Or use hardcoded fallback values
+    if (isNaN(designedWidth) || isNaN(designedHeight) || designedWidth <= 0 || designedHeight <= 0) {
+        // console.warn("Designed dimensions for gameWindow not ready, using fallbacks or retrying...");
+        designedWidth = FALLBACK_DESIGNED_WIDTH;
+        designedHeight = FALLBACK_DESIGNED_HEIGHT;
+        // requestAnimationFrame(scaleGameInterface); // Optional retry
+        // return;
     }
-
 
     const availableWidth = scalerWrapper.offsetWidth;
     const availableHeight = scalerWrapper.offsetHeight;
 
     const scaleX = availableWidth / designedWidth;
     const scaleY = availableHeight / designedHeight;
-
-    // Use the smaller scale factor to fit an maintain aspect ratio
     const scale = Math.min(scaleX, scaleY);
+    const finalScale = Math.max(0.1, scale); // No extra margin, fill as much as possible
 
-    // Apply the scale
-    // Add a small margin to prevent it from touching edges if scaled down a lot
-    const margin = 0.98; // Scale to 98% of the smallest dimension to leave some padding
-    const finalScale = scale * margin;
-
-    monitorFrame.style.transform = `scale(${finalScale})`;
-
-    // Adjust font size on the input field if needed after scaling, though often not necessary
-    // as the whole thing scales.
-    // const inputField = document.getElementById('player-input-field');
-    // inputField.style.fontSize = `calc(${getComputedStyle(inputField).fontSize} / ${finalScale})`;
+    gameWindow.style.transform = `scale(${finalScale})`;
 }
 
 
@@ -809,5 +800,11 @@ function initUI() {
 // --- START THE GAME ---
 document.addEventListener('DOMContentLoaded', () => {
     initUI();
+    scaleGameInterface(); // Initial scale
+    window.addEventListener('resize', scaleGameInterface); // Re-scale on window resize
     renderScreen();
+    if (UIElements.playerInput && (gameState.currentScreen !== 'TITLE' && gameState.currentScreen !== 'STATUS' && gameState.currentScreen !== 'JAIL' && gameState.currentScreen !== 'GAME_OVER')) {
+        UIElements.playerInput.focus();
+    }
+    console.log("Mafia C64 Browser Edition Initialized (No Monitor Frame).");
 });

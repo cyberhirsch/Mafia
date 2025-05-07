@@ -2,34 +2,32 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no"> <!-- Added shrink-to-fit=no -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Mafia - C64 Browser Edition</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div id="scaler-wrapper">
-        <!-- New wrapper for scaling -->
-        <div id="monitor-frame">
-            <div id="game-window">
-                <div id="status-line">
-                    <!-- Status injected by JS -->
+        <!-- This will now directly wrap game-window -->
+        <div id="game-window">
+            <!-- This is now the outermost game element to be scaled -->
+            <div id="status-line">
+                <!-- Status injected by JS -->
+            </div>
+            <div id="c64-container" class="c64-screen yellow-bg">
+                <div id="main-text-area">
+                    <!-- Content injected by JS -->
                 </div>
-                <div id="c64-container" class="c64-screen yellow-bg">
-                    <!-- Initial background -->
-                    <div id="main-text-area">
-                        <!-- Content injected by JS -->
-                    </div>
-                    <ul id="options-list">
-                        <!-- Options injected by JS -->
-                    </ul>
-                    <div class="input-area">
-                        <span id="prompt-text"></span><span id="cursor-simulation">█</span>
-                        <input type="text" id="player-input-field" autofocus>
-                    </div>
+                <ul id="options-list">
+                    <!-- Options injected by JS -->
+                </ul>
+                <div class="input-area">
+                    <span id="prompt-text"></span><span id="cursor-simulation">█</span>
+                    <input type="text" id="player-input-field" autofocus>
                 </div>
-                <div id="message-area">
-                    <!-- Short term messages injected by JS -->
-                </div>
+            </div>
+            <div id="message-area">
+                <!-- Short term messages injected by JS -->
             </div>
         </div>
     </div>
