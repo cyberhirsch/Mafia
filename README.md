@@ -9,7 +9,6 @@ Step into the shoes of an aspiring underworld figure in Hademarschen. Start with
 ---
 
 ![Screenshot of Mafia C64 Browser Edition](https://github.com/cyberhirsch/Mafia/blob/main/Screenshot.png)
-*(Replace path/to/your/screenshot.png with the actual path to your screenshot in the repository, or an image URL. Consider adding a couple more to show different screens!)*
 
 ---
 
@@ -51,7 +50,7 @@ Step into the shoes of an aspiring underworld figure in Hademarschen. Start with
 
 4.  **Gameplay:**
     *   The game will start automatically.
-    *   Follow the on-screen prompts. Player 1 ("Faddie") starts the game. Turns alternate between the two players.
+    *   Follow the on-screen prompts. Player 1 starts the game. Turns alternate between the two players.
     *   Use your keyboard to enter choices (numbers or 'N') and press `Enter`.
     *   For screens like the Title, Status, Jail, or Game Over, pressing almost any key will advance the game.
 
