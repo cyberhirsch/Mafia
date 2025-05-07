@@ -4,12 +4,11 @@ A retro-inspired, turn-based strategy game built for the web, faithfully recreat
 
 Step into the shoes of an aspiring underworld figure in Hademarschen. Start with petty thefts, invest your ill-gotten gains into a variety of illicit businesses, recruit henchmen, bribe officials, and take on your rivals to build a criminal empire.
 
-**Live Demo:** [Link to Live Demo Here](https://yourusername.github.io/mafia-c64-browser/)
-*(Replace with your actual demo link or remove if not applicable)*
+**Live Demo:** [Link to Live Demo Here](https://cyberhirsch.github.io/Mafia/)
 
 ---
 
-![Screenshot of Mafia C64 Browser Edition](path/to/your/screenshot.png)
+![Screenshot of Mafia C64 Browser Edition](https://github.com/cyberhirsch/Mafia/blob/main/Screenshot.png)
 *(Replace path/to/your/screenshot.png with the actual path to your screenshot in the repository, or an image URL. Consider adding a couple more to show different screens!)*
 
 ---
